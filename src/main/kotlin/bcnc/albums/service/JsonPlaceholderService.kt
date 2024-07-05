@@ -11,4 +11,6 @@ interface JsonPlaceholderService {
     fun getAlbumById(id:Int): Album
 
     fun getPhotoById(id:Int): Photo
+
+    fun getAllPhotosByAlbumId(id:Int): List<Photo>
 }

@@ -49,7 +49,7 @@ class JsonPlaceholderServiceTest {
         val result = jsonPlaceholderService.getAllAlbums()
 
         verify(jsonPlaceholderFeignClient).getAllAlbumsFromJsonPlaceholder()
-        assertEquals(10,result.size,)
+        assertEquals(10,result.size)
         assertEquals(listAlbums,result)
     }
 
@@ -73,7 +73,7 @@ class JsonPlaceholderServiceTest {
         val result = jsonPlaceholderService.getAllPhotos()
 
         verify(jsonPlaceholderFeignClient).getAllPhotosFromJsonPlaceholder()
-        assertEquals(9,result.size,)
+        assertEquals(9,result.size)
         assertEquals(listPhoto,result)
     }
 
@@ -107,8 +107,8 @@ class JsonPlaceholderServiceTest {
     @Test
     fun getPhotoByIdTest(){
         val json = javaClass.getResource("/photos.json")!!.readText()
-        val listAlbum: List<Photo> = mapper.readValue(json)
-        Mockito.`when`(jsonPlaceholderFeignClient.getPhotoByIdFromJsonPlaceholder(1)).thenReturn(listAlbum.get(0))
+        val listPhoto: List<Photo> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderFeignClient.getPhotoByIdFromJsonPlaceholder(1)).thenReturn(listPhoto.get(0))
 
         val result = jsonPlaceholderService.getPhotoById(1)
 
@@ -119,5 +119,17 @@ class JsonPlaceholderServiceTest {
         assertEquals("accusamus beatae ad facilis cum similique qui sunt",result.getTitle())
         assertEquals("https://via.placeholder.com/600/92c952",result.getUrl())
         assertEquals("https://via.placeholder.com/150/92c952",result.getThumbnailUrl())
+    }
+
+    @Test
+    fun getAllPhotoByAlbumIdTest(){
+        val json = javaClass.getResource("/photos.json")!!.readText()
+        val listPhotos: List<Photo> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderFeignClient.getAllPhotosFromAlbumFromJsonPlaceholder(1)).thenReturn(listPhotos)
+
+        val result = jsonPlaceholderService.getAllPhotosByAlbumId(1)
+
+        assertEquals(9,result.size)
+        assertEquals(listPhotos,result)
     }
 }
