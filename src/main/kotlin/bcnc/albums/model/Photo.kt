@@ -1,8 +1,8 @@
 package bcnc.albums.model
 
-class Photo(val albumId: Int,
-            val id: Int,
-            val title: String,
-            val url: String,
-            val thumbnailUrl: String) {
+class Photo(private val albumId: Int,
+            private val id: Int,
+            private val title: String,
+            private val url: String,
+            private val thumbnailUrl: String) {
 }

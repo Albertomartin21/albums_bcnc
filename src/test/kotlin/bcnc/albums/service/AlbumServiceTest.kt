@@ -14,6 +14,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 
 @ExtendWith(MockitoExtension::class)
@@ -54,6 +55,21 @@ class AlbumServiceTest {
         verify(jsonPlaceholderService).getAllAlbums()
         assertEquals(0,result.size)
         assertEquals(listOf(),result)
+    }
+
+    @Test
+    fun getAlbumsByIdTest(){
+        val json = javaClass.getResource("/albums.json")!!.readText()
+        val listAlbum: List<Album> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderService.getAlbumById(1)).thenReturn(listAlbum.get(0))
+
+        val result = albumService.getAlbumById(1)
+
+        verify(jsonPlaceholderService).getAlbumById(1)
+        assertNotNull(result)
+        assertEquals(1,result.getUserId())
+        assertEquals(1,result.getId())
+        assertEquals("quidem molestiae enim",result.getTitle())
     }
 
 

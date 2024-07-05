@@ -13,4 +13,8 @@ class AlbumServiceImpl(private val jsonPlaceholderService: JsonPlaceholderServic
         return jsonPlaceholderService.getAllAlbums()
     }
 
+    override fun getAlbumById(id:Int): Album {
+        return jsonPlaceholderService.getAlbumById(id)
+    }
+
 }

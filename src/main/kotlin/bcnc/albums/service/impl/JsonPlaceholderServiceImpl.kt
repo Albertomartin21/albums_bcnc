@@ -19,4 +19,8 @@ class JsonPlaceholderServiceImpl(private val jsonPlaceholderFeignClient: JsonPla
     override fun getAllPhotos(): List<Photo> {
         return jsonPlaceholderFeignClient.getAllPhotosFromJsonPlaceholder();
     }
+
+    override fun getAlbumById(id:Int): Album {
+        return jsonPlaceholderFeignClient.getAlbumByIdFromJsonPlaceholder(id)
+    }
 }

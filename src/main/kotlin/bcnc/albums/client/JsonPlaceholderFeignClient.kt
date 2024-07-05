@@ -5,6 +5,7 @@ import bcnc.albums.model.Photo
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.cloud.openfeign.FeignClientsConfiguration
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 
 @FeignClient(name = "json-placeholder", url = "\${app.client.jsonPlaceHolderRoute}", configuration = [FeignClientsConfiguration::class])
 interface JsonPlaceholderFeignClient {
@@ -14,4 +15,7 @@ interface JsonPlaceholderFeignClient {
 
     @GetMapping("/photos", produces = ["application/json"])
     fun getAllPhotosFromJsonPlaceholder(): List<Photo>
+
+    @GetMapping("/albums/{id}", produces = ["application/json"])
+    fun getAlbumByIdFromJsonPlaceholder(@PathVariable id:Int): Album
 }
