@@ -1,4 +1,4 @@
-package com.example.pruebatecnicakotlin.service
+package bcnc.albums.service
 
 import bcnc.albums.model.Album
 import bcnc.albums.service.AlbumService
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertEquals
 
@@ -38,8 +39,10 @@ class AlbumServiceTest {
 
         val result = albumService.getAlbums()
 
+        verify(jsonPlaceholderService).getAllAlbums()
         assertEquals(10,result.size)
         assertEquals(listAlbum,result)
+
     }
 
     @Test
@@ -48,6 +51,7 @@ class AlbumServiceTest {
 
         val result = albumService.getAlbums()
 
+        verify(jsonPlaceholderService).getAllAlbums()
         assertEquals(0,result.size)
         assertEquals(listOf(),result)
     }

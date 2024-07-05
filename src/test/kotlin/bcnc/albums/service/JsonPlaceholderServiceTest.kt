@@ -1,4 +1,4 @@
-package com.example.pruebatecnicakotlin.service
+package bcnc.albums.service
 
 import bcnc.albums.client.JsonPlaceholderFeignClient
 import bcnc.albums.model.Album
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertEquals
 
@@ -40,6 +41,7 @@ class JsonPlaceholderServiceTest {
 
         val result = jsonPlaceholderService.getAllAlbums()
 
+        verify(jsonPlaceholderFeignClient).getAllAlbumsFromJsonPlaceholder()
         assertEquals(10,result.size,)
         assertEquals(listAlbums,result)
     }
@@ -50,6 +52,7 @@ class JsonPlaceholderServiceTest {
 
         val result = jsonPlaceholderService.getAllAlbums()
 
+        verify(jsonPlaceholderFeignClient).getAllAlbumsFromJsonPlaceholder()
         assertEquals(result.size,0)
         assertEquals(result,listOf())
     }
