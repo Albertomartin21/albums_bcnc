@@ -18,4 +18,7 @@ interface JsonPlaceholderFeignClient {
 
     @GetMapping("/albums/{id}", produces = ["application/json"])
     fun getAlbumByIdFromJsonPlaceholder(@PathVariable id:Int): Album
+
+    @GetMapping("/photos/{id}", produces = ["application/json"])
+    fun getPhotoByIdFromJsonPlaceholder(@PathVariable id:Int): Photo
 }

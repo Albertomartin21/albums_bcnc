@@ -12,6 +12,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 @ExtendWith(MockitoExtension::class)
 class PhotosServiceTest {
@@ -50,5 +51,23 @@ class PhotosServiceTest {
         verify(jsonPlaceholderService).getAllPhotos()
         assertEquals(0,result.size)
         assertEquals(listOf(),result)
+    }
+
+    @Test
+    fun getPhotosByIdTest(){
+        val json = javaClass.getResource("/photos.json")!!.readText()
+        val listPhotos: List<Photo> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderService.getPhotoById(1)).thenReturn(listPhotos.get(0))
+
+        val result = photosService.getPhotoById(1)
+
+        verify(jsonPlaceholderService).getPhotoById(1)
+        assertNotNull(result)
+        assertEquals(1,result.getId())
+        assertEquals(1,result.getAlbumId())
+        assertEquals("accusamus beatae ad facilis cum similique qui sunt",result.getTitle())
+        assertEquals("https://via.placeholder.com/600/92c952",result.getUrl())
+        assertEquals("https://via.placeholder.com/150/92c952",result.getThumbnailUrl())
+
     }
 }

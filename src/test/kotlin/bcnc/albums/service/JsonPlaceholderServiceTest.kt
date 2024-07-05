@@ -102,4 +102,22 @@ class JsonPlaceholderServiceTest {
         assertEquals(1,result.getId())
         assertEquals("quidem molestiae enim",result.getTitle())
     }
+
+
+    @Test
+    fun getPhotoByIdTest(){
+        val json = javaClass.getResource("/photos.json")!!.readText()
+        val listAlbum: List<Photo> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderFeignClient.getPhotoByIdFromJsonPlaceholder(1)).thenReturn(listAlbum.get(0))
+
+        val result = jsonPlaceholderService.getPhotoById(1)
+
+        verify(jsonPlaceholderFeignClient).getPhotoByIdFromJsonPlaceholder(1)
+        assertNotNull(result)
+        assertEquals(1,result.getId())
+        assertEquals(1,result.getAlbumId())
+        assertEquals("accusamus beatae ad facilis cum similique qui sunt",result.getTitle())
+        assertEquals("https://via.placeholder.com/600/92c952",result.getUrl())
+        assertEquals("https://via.placeholder.com/150/92c952",result.getThumbnailUrl())
+    }
 }
