@@ -1,7 +1,13 @@
 package bcnc.albums.model
 
+import lombok.Getter
 
-class Album(val userId: Int,
-            val id: Int,
-            val title: String) {
+@Getter
+class Album(private val userId: Int,
+            private val id: Int,
+            private val title: String) {
+
+    fun getUserId() = this.userId
+    fun getId() = this.id
+    fun getTitle() = this.title
 }

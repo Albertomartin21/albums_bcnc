@@ -1,7 +1,6 @@
 package bcnc.albums.integration
 
 import bcnc.albums.AlbumsApplication
-import bcnc.albums.model.Album
 import bcnc.albums.model.Photo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
