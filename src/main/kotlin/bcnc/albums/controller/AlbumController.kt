@@ -2,6 +2,7 @@ package bcnc.albums.controller
 
 import bcnc.albums.exception.JsonPlaceHolderException
 import bcnc.albums.model.Album
+import bcnc.albums.model.dto.AlbumDTO
 import bcnc.albums.service.AlbumService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -34,5 +35,10 @@ class AlbumController (private val albumService: AlbumService) {
         } catch (jsonPlaceHolderException: JsonPlaceHolderException) {
             return ResponseEntity(jsonPlaceHolderException.message, HttpStatus.NOT_FOUND)
         }
+    }
+
+    @GetMapping("/albums/photos")
+    fun getAllPhotosFromAlbum(): List<AlbumDTO> {
+        return albumService.getAllAlbumAndPhotos()
     }
 }
