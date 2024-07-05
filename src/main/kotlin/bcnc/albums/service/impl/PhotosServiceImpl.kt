@@ -11,4 +11,8 @@ class PhotosServiceImpl(private val jsonPlaceholderService: JsonPlaceholderServi
     override fun getPhotos(): List<Photo> {
         return jsonPlaceholderService.getAllPhotos()
     }
+
+    override fun getPhotoById(id: Int): Photo {
+        return jsonPlaceholderService.getPhotoById(id)
+    }
 }

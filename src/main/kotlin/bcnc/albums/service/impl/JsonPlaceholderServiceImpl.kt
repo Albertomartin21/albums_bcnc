@@ -30,4 +30,12 @@ class JsonPlaceholderServiceImpl(private val jsonPlaceholderFeignClient: JsonPla
             throw JsonPlaceHolderException(feignException.status(),"Not found the album with id: $id")
         }
     }
+
+    override fun getPhotoById(id: Int): Photo {
+        try {
+            return jsonPlaceholderFeignClient.getPhotoByIdFromJsonPlaceholder(id)
+        }catch (feignException: FeignException){
+            throw JsonPlaceHolderException(feignException.status(),"Not found the photo with id: $id")
+        }
+    }
 }

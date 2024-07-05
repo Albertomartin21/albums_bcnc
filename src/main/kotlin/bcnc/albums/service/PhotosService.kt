@@ -5,4 +5,5 @@ import bcnc.albums.model.Photo
 
 interface PhotosService {
     fun getPhotos(): List<Photo>
+    fun getPhotoById(id:Int): Photo
 }
