@@ -2,6 +2,7 @@ package bcnc.albums.service
 
 import bcnc.albums.client.JsonPlaceholderFeignClient
 import bcnc.albums.model.Album
+import bcnc.albums.model.Photo
 import bcnc.albums.service.JsonPlaceholderService
 import bcnc.albums.service.impl.JsonPlaceholderServiceImpl
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -56,6 +57,31 @@ class JsonPlaceholderServiceTest {
         assertEquals(result.size,0)
         assertEquals(result,listOf())
     }
+
+    @Test
+    fun getAllPhotoTest(){
+        val json = javaClass.getResource("/photos.json")!!.readText()
+        val listPhoto: List<Photo> = mapper.readValue(json)
+        Mockito.`when`(jsonPlaceholderFeignClient.getAllPhotosFromJsonPlaceholder()).thenReturn(listPhoto)
+
+        val result = jsonPlaceholderService.getAllPhotos()
+
+        verify(jsonPlaceholderFeignClient).getAllPhotosFromJsonPlaceholder()
+        assertEquals(9,result.size,)
+        assertEquals(listPhoto,result)
+    }
+
+    @Test
+    fun getPhotosWithEmptyResultTest(){
+        Mockito.`when`(jsonPlaceholderFeignClient.getAllPhotosFromJsonPlaceholder()).thenReturn(listOf())
+
+        val result = jsonPlaceholderService.getAllPhotos()
+
+        verify(jsonPlaceholderFeignClient).getAllPhotosFromJsonPlaceholder()
+        assertEquals(result.size,0)
+        assertEquals(result,listOf())
+    }
+
 
 
 
