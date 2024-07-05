@@ -1,6 +1,8 @@
 package bcnc.albums.service
 
 import bcnc.albums.model.Album
+import bcnc.albums.model.Photo
+import bcnc.albums.model.dto.AlbumDTO
 import bcnc.albums.service.AlbumService
 import bcnc.albums.service.JsonPlaceholderService
 import bcnc.albums.service.impl.AlbumServiceImpl
@@ -72,6 +74,25 @@ class AlbumServiceTest {
         assertEquals("quidem molestiae enim",result.getTitle())
     }
 
+
+    @Test
+    fun getAllPhotosByAlbumTest(){
+        val jsonAlbum = javaClass.getResource("/albums.json")!!.readText()
+        val listAlbum: List<Album> = mapper.readValue(jsonAlbum)
+        val jsonPhoto = javaClass.getResource("/photos.json")!!.readText()
+        val listPhotos: List<Photo> = mapper.readValue(jsonPhoto)
+        val albumDTO = AlbumDTO(listAlbum.get(0),listPhotos)
+        Mockito.`when`(jsonPlaceholderService.getAllPhotosByAlbumId(1)).thenReturn(listPhotos)
+        Mockito.`when`(jsonPlaceholderService.getAlbumById(1)).thenReturn(listAlbum.get(0))
+
+        val result = albumService.getAllPhotosFromAlbum(1)
+
+        verify(jsonPlaceholderService).getAllPhotosByAlbumId(1)
+        verify(jsonPlaceholderService).getAlbumById(1)
+        assertEquals(albumDTO.getAlbum(),result.getAlbum())
+        assertEquals(albumDTO.getList(),result.getList())
+
+    }
 
 
 }

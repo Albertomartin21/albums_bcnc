@@ -3,6 +3,7 @@ package bcnc.albums.integration
 import bcnc.albums.AlbumsApplication
 import bcnc.albums.exception.JsonPlaceHolderException
 import bcnc.albums.model.Album
+import bcnc.albums.model.dto.AlbumDTO
 import org.apache.commons.lang.ObjectUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertNull
@@ -47,6 +48,20 @@ class AlbumControllerTest {
         assertThat(result.statusCode.value()).isEqualTo(404)
         assertNotNull(result.body!!)
         assertThat(result.body!!).isEqualTo("Not found the album with id: 131")
+    }
+
+    @Test
+    fun getAllPhotosFromAlbumTest(){
+        val result = restTemplate.getForEntity("/albums/1/photos", Any::class.java)
+
+        assertThat(result.statusCode.value()).isEqualTo(200)
+    }
+    @Test
+    fun getAllPhotosFromAlbumAndReturn404Test(){
+        val result = restTemplate.getForEntity("/albums/321", String::class.java)
+
+        assertThat(result.statusCode.value()).isEqualTo(404)
+        assertThat(result.body!!).isEqualTo("Not found the album with id: 321")
     }
 
 

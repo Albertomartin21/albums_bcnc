@@ -26,4 +26,13 @@ class AlbumController (private val albumService: AlbumService) {
             return ResponseEntity(jsonPlaceHolderException.message, HttpStatus.NOT_FOUND)
         }
     }
+
+    @GetMapping("/albums/{id}/photos")
+    fun getAllPhotosFromAlbum(@PathVariable id:Int): ResponseEntity<Any> {
+        try {
+            return ResponseEntity.ok(albumService.getAllPhotosFromAlbum(id))
+        } catch (jsonPlaceHolderException: JsonPlaceHolderException) {
+            return ResponseEntity(jsonPlaceHolderException.message, HttpStatus.NOT_FOUND)
+        }
+    }
 }
