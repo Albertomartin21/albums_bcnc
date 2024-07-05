@@ -1,19 +1,24 @@
 package bcnc.albums.service
 
 import bcnc.albums.client.JsonPlaceholderFeignClient
+import bcnc.albums.exception.JsonPlaceHolderException
 import bcnc.albums.model.Album
 import bcnc.albums.model.Photo
 import bcnc.albums.service.JsonPlaceholderService
 import bcnc.albums.service.impl.JsonPlaceholderServiceImpl
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import feign.FeignException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.cloud.openfeign.FeignClient
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
@@ -97,6 +102,4 @@ class JsonPlaceholderServiceTest {
         assertEquals(1,result.getId())
         assertEquals("quidem molestiae enim",result.getTitle())
     }
-
-
 }
