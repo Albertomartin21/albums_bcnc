@@ -95,4 +95,20 @@ class AlbumServiceTest {
     }
 
 
+    @Test
+    fun getAllAlbumsAndPhotosTest(){
+        val jsonAlbum = javaClass.getResource("/albums.json")!!.readText()
+        val listAlbum: List<Album> = mapper.readValue(jsonAlbum)
+        Mockito.`when`(jsonPlaceholderService.getAllAlbums()).thenReturn(listAlbum)
+
+        val result = albumService.getAllAlbumAndPhotos()
+
+        for (i in 1..10) {
+            verify(jsonPlaceholderService).getAllPhotosByAlbumId(i)
+        }
+        verify(jsonPlaceholderService).getAllAlbums()
+        assertEquals(10,result.size)
+    }
+
+
 }

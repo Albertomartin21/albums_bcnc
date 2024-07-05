@@ -8,4 +8,5 @@ interface AlbumService {
     fun getAlbums(): List<Album>
     fun getAlbumById(id:Int): Album
     fun getAllPhotosFromAlbum(id:Int): AlbumDTO
+    fun getAllAlbumAndPhotos(): List<AlbumDTO>
 }

@@ -22,4 +22,12 @@ class AlbumServiceImpl(private val jsonPlaceholderService: JsonPlaceholderServic
         return AlbumDTO(jsonPlaceholderService.getAlbumById(id),jsonPlaceholderService.getAllPhotosByAlbumId(id))
     }
 
+    override fun getAllAlbumAndPhotos(): List<AlbumDTO> {
+        val albums = jsonPlaceholderService.getAllAlbums()
+        val listAlbumDto = mutableListOf<AlbumDTO>()
+        albums.stream().forEach{album -> listAlbumDto.add(AlbumDTO(album,
+            jsonPlaceholderService.getAllPhotosByAlbumId(album.getId())))}
+        return listAlbumDto
+    }
+
 }

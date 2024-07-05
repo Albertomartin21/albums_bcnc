@@ -64,5 +64,13 @@ class AlbumControllerTest {
         assertThat(result.body!!).isEqualTo("Not found the album with id: 321")
     }
 
+    @Test
+    fun getAllAlbumsAndPhotosTest(){
+        val result = restTemplate.getForEntity("/albums/photos", Any::class.java)
+
+        assertThat(result.statusCode.value()).isEqualTo(200)
+    }
+
+
 
 }
