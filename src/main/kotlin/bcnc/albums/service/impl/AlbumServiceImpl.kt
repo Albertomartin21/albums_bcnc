@@ -29,14 +29,16 @@ class AlbumServiceImpl(private val jsonPlaceholderService: JsonPlaceholderServic
 
 
         val listAlbumDto = mutableListOf<AlbumDTO>()
-        val listPhoto = mutableListOf<Photo>()
 
-        albums.stream().forEach{album -> photos.stream().forEach{photo ->
-            if (photo.getAlbumId()==album.getId())
-                listPhoto.add(photo)
+        albums.stream().forEach{album ->
+            val listPhoto = mutableListOf<Photo>()
+            photos.stream().forEach{photo ->
+                if (photo.getAlbumId()==album.getId())
+                    listPhoto.add(photo)
+            }
+            listAlbumDto.add(AlbumDTO(album,listPhoto))
         }
-        listAlbumDto.add(AlbumDTO(album,listPhoto))
-        }
+
 
         return listAlbumDto
     }
