@@ -103,9 +103,7 @@ class AlbumServiceTest {
 
         val result = albumService.getAllAlbumAndPhotos()
 
-        for (i in 1..10) {
-            verify(jsonPlaceholderService).getAllPhotosByAlbumId(i)
-        }
+        verify(jsonPlaceholderService).getAllPhotos()
         verify(jsonPlaceholderService).getAllAlbums()
         assertEquals(10,result.size)
     }
