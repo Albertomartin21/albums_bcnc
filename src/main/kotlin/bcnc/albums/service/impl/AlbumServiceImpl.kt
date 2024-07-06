@@ -3,6 +3,7 @@ package bcnc.albums.service.impl
 import bcnc.albums.service.AlbumService
 import bcnc.albums.service.JsonPlaceholderService
 import bcnc.albums.model.Album
+import bcnc.albums.model.Photo
 import bcnc.albums.model.dto.AlbumDTO
 import org.springframework.stereotype.Service
 
@@ -24,9 +25,19 @@ class AlbumServiceImpl(private val jsonPlaceholderService: JsonPlaceholderServic
 
     override fun getAllAlbumAndPhotos(): List<AlbumDTO> {
         val albums = jsonPlaceholderService.getAllAlbums()
+        var photos = jsonPlaceholderService.getAllPhotos()
+
+
         val listAlbumDto = mutableListOf<AlbumDTO>()
-        albums.stream().forEach{album -> listAlbumDto.add(AlbumDTO(album,
-            jsonPlaceholderService.getAllPhotosByAlbumId(album.getId())))}
+        val listPhoto = mutableListOf<Photo>()
+
+        albums.stream().forEach{album -> photos.stream().forEach{photo ->
+            if (photo.getAlbumId()==album.getId())
+                listPhoto.add(photo)
+        }
+        listAlbumDto.add(AlbumDTO(album,listPhoto))
+        }
+
         return listAlbumDto
     }
 
